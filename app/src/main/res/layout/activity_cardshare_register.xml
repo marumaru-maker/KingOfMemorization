@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_share_register"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        >
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        android:elevation="4dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="카드 공유 등록"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:background="@color/colorGreen"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:elevation="4dp"
+            />
+
+        <EditText
+            android:id="@+id/et_share_register_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:hint="제목"
+            android:background="@drawable/edittext_rounded_corner_rectangle"
+            />
+
+        <LinearLayout
+            android:weightSum="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            >
+
+            <EditText
+                android:layout_weight="2"
+                android:id="@+id/et_share_register_category"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:hint="카테고리"
+                android:background="@drawable/edittext_rounded_corner_rectangle"
+                />
+
+            <Button
+                android:id="@+id/btn_share_register_add"
+                android:layout_weight="8"
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_register_add"
+                android:text="추가"
+                android:textColor="#ffffff"
+
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_share_register_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="없음"/>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="암기카드 리스트"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@color/colorPrimary"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/tv_share_empty"
+                android:layout_centerVertical="true"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="암기카드를 등록해주세요 :)"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_share_register"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_share_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="10"
+                android:layout_marginTop="-40dp"
+                android:layout_below="@+id/ll_share_register"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_share_register_cancel"
+                    android:layout_weight="8"
+                    android:background="@color/colorBrown"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="취소"
+                    android:textColor="#ffffff"
+                    />
+
+                <Button
+                    android:id="@+id/btn_share_register_register"
+                    android:layout_weight="2"
+                    android:background="@color/colorGreen"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textStyle="bold"
+                    android:text="등록"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

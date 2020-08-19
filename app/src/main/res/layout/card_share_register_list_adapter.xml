@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_share_register_card"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:background="@color/colorBlue"
+    android:gravity="center_vertical"
+    android:elevation="4dp"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/tv_share_register_card_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="100dp"
+        android:text="Empty Title"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tv_share_register_card_date"
+        android:layout_toRightOf="@+id/tv_share_register_card_title"
+        android:layout_marginLeft="-100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2020.08.01"
+        />
+
+    <ToggleButton
+        android:id="@+id/tb_share_register_card"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toRightOf="@id/tv_share_register_card_date"
+        android:layout_marginLeft="5dp"
+        android:checked="false"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/notchecked"/>
+
+
+</RelativeLayout>
