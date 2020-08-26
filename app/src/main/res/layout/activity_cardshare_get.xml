@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_share_get"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        ></androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/ll_share_card_get"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:background="@color/colorBlue"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/brain"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_share_title"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:text="토익 초급 단어"/>
+
+            <TextView
+                android:id="@+id/tv_share_category"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:text="토익 | 초급 | 단어"/>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_star"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/starfish"/>
+
+                <TextView
+                    android:id="@+id/tv_share_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="0 개"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/iv_star"
+                    android:layout_marginLeft="3dp"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_share_regdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="2020.08.03"
+                    android:gravity="center_vertical"
+                    android:layout_toLeftOf="@+id/ib_share_import"
+                    android:layout_marginLeft="3dp"
+                    android:layout_centerVertical="true"
+                    />
+
+                <ImageButton
+                    android:layout_centerVertical="true"
+                    android:id="@+id/ib_share_import"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/logout"/>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_share_get"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>

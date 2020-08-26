@@ -1,6 +1,8 @@
 package marumaru.v01.kingofmemorization;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ public class CardShareAdapter extends RecyclerView.Adapter<CardShareVH> {
 
     Context mContext;
     ArrayList<CardPost> list_cards;
+    CardPost card;
 
     CardShareAdapter(Context context, ArrayList<CardPost> list_cards){
         mContext = context;
@@ -36,7 +39,7 @@ public class CardShareAdapter extends RecyclerView.Adapter<CardShareVH> {
     @Override
     public void onBindViewHolder(@NonNull CardShareVH holder, int position) {
 
-        CardPost card = list_cards.get(position);
+        card = list_cards.get(position);
 
         holder.tv_share_title.setText(card.getTitle());
         holder.tv_share_category.setText(card.getCategory());
@@ -47,7 +50,14 @@ public class CardShareAdapter extends RecyclerView.Adapter<CardShareVH> {
         holder.ll_share_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "ll_share_card Clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "ll_share_card Clicked", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(mContext, CardShareGetActivity.class);
+                intent.putExtra("cnos", card.getCnos()+"");
+                intent.putExtra("reg_date", card.getReg_date());
+                intent.putExtra("title", card.getTitle());
+                intent.putExtra("num_star", card.getStar());
+                mContext.startActivity(intent);
             }
         });
 
