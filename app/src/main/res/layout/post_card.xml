@@ -36,6 +36,7 @@
             android:text="토익 | 초급 | 단어"/>
 
         <RelativeLayout
+            android:id="@+id/rl_share_option"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

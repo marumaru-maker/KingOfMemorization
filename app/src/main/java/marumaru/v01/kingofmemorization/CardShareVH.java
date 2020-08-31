@@ -3,6 +3,7 @@ package marumaru.v01.kingofmemorization;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 class CardShareVH extends RecyclerView.ViewHolder {
 
     LinearLayout ll_share_card;
+    RelativeLayout rl_share_option;
     ImageButton ib_share_import;
     TextView tv_share_title, tv_share_category, tv_share_star, tv_share_regdate;
 
@@ -23,6 +25,7 @@ class CardShareVH extends RecyclerView.ViewHolder {
         tv_share_category = itemView.findViewById(R.id.tv_share_category);
         tv_share_star = itemView.findViewById(R.id.tv_share_star);
         tv_share_regdate = itemView.findViewById(R.id.tv_share_regdate);
+        rl_share_option = itemView.findViewById(R.id.rl_share_option);
 
 
 

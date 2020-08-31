@@ -32,6 +32,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.zip.Inflater;
 
 import marumaru.v01.kingofmemorization.Request.RegisterCardRequest;
 import marumaru.v01.kingofmemorization.Request.ShareCardRequest;
@@ -41,13 +42,14 @@ import marumaru.v01.kingofmemorization.domain.CardPost;
 public class CardShareRegisterActivity extends AppCompatActivity {
 
     RecyclerView rv;
+    LinearLayout ll_share_register_category;
     EditText et_share_register_title,
             et_share_register_category;
-    TextView tv_share_register_category;
     Button btn_share_register_register,
             btn_share_register_add;
     ArrayList<CardPost> list_cardPosts;
     ShareRegisterAdapter adapter;
+    int max_category_num = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,9 +59,9 @@ public class CardShareRegisterActivity extends AppCompatActivity {
 
         et_share_register_title = findViewById(R.id.et_share_register_title);
         et_share_register_category = findViewById(R.id.et_share_register_category);
-        tv_share_register_category = findViewById(R.id.tv_share_register_category);
         btn_share_register_register = findViewById(R.id.btn_share_register_register);
         btn_share_register_add = findViewById(R.id.btn_share_register_add);
+        ll_share_register_category = findViewById(R.id.ll_share_register_category);
 
 
         // 툴바
@@ -124,12 +126,36 @@ public class CardShareRegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String category = et_share_register_category.getText().toString();
 
+                if(category == null || category.equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CardShareRegisterActivity.this);
+                    AlertDialog dialog = builder.setMessage("입력된 내용이 없습니다.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
+
+                // 인플레이터로 뷰 생성
+                View category_item = getLayoutInflater().inflate(R.layout.category_item, null);
+                category_item.setTag(max_category_num++);
+                ((TextView)category_item.findViewById(R.id.tv_share_category_item)).setText(category);
+
+                category_item.findViewById(R.id.ib_share_category_item).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        View view_category = (View) view.getParent();
+                        ll_share_register_category.removeView(view_category);
+                    }
+                });
+
+                ll_share_register_category.addView(category_item);
+
+                /*
                 if(tv_share_register_category.getText().toString().equals("없음")){
                     tv_share_register_category.setText(category);
                 } else {
                     tv_share_register_category.append("," + category);
                 }
                 et_share_register_category.setText("");
+                */
 
                 // 입력된 카테고리 없애기 LinearLayout vertical horizontal 로 한 다음에 거기에다가 <TextView> <Button> 을 같이 넣어야 할듯
 
@@ -143,7 +169,21 @@ public class CardShareRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String title = et_share_register_title.getText().toString();
-                String category = tv_share_register_category.getText().toString();
+                String category = "없음"; // 현재 ',' 으로 구분해서 카테고리를 보낸다; 만약 이걸 'x' 모양을 둬서 삭제 가능한 형태로 한다면 어떻게 받아올 것인가?;
+                // 카테고리 넣을 때마다 tag 를 지정하고 max_category 도 늘린다. 그리고 0~max_category 까지 루프를 돌면서 해당 카테고리가 아직 있다면 값을 받아온다.
+                // 'x' 누르면 없어지는 리스너를 단다;
+
+                for(int i=0; i<max_category_num; i++){
+                    LinearLayout ll = ll_share_register_category.findViewWithTag(i); // 태그로 카테고리 찾기
+                    if(ll == null) // null 이면 패스
+                        continue;
+                    if(i == 0){ // 첫 카테고리인 경우
+                        category = ((TextView)ll.findViewById(R.id.tv_share_category_item)).getText()+"";
+                    } else { // 그 외
+                        category += ","+((TextView)ll.findViewById(R.id.tv_share_category_item)).getText();
+                    }
+                }
+                //Log.d("category", category);
 
                 // 빠진 데이터 처리
                 if(title == null || title.equals("") || category.equals("없음")){

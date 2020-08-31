@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,6 +100,14 @@ public class CardShareActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        //Toast.makeText(CardShareActivity.this, "onRestart()", Toast.LENGTH_SHORT).show();
+        sendRequest(new Criteria());
+    }
+
     private void sendRequest(Criteria cri) {
 
         // StringRequest ShowCardsRequest 를 작성하여 param 으로 userID 전달 - ResponseListener 에서 받은 Card 정보를 View 로 만들어 append - View 에는 리스너를 달아 눌렀을 때 액티비티 이동되게 할 것
@@ -116,10 +125,13 @@ public class CardShareActivity extends AppCompatActivity {
                         JSONObject object = (JSONObject) jsonArray.get(i);
 
                         CardPost post = new CardPost();
+                        post.setSno(object.getLong("sno"));
                         post.setReg_date(object.getString("reg_date"));
                         post.setTitle(object.getString("title"));
                         post.setStar(object.getLong("num_star"));
                         post.setCnos(object.getString("cnos"));
+                        post.setCategory(object.getString("category"));
+                        post.setWriter(object.getString("writer"));
                         list_cards.add(post);
                     }
 

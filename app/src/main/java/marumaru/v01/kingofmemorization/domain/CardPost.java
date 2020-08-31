@@ -5,12 +5,17 @@ import java.util.Date;
 public class CardPost {
 
     private Long cno;      // PK
+    private Long sno;       // 공유 no
     private String title;   // 제목
     private String reg_date;  // 등록일
     private String writer;  // 작성자
     private Long star;      // 공유 갯수
     private String category;// 카테고리 ',' 로 구분
     private String cnos;
+
+    public Long getSno() { return sno; }
+
+    public void setSno(Long sno) { this.sno = sno;}
 
     public String getCnos() { return cnos; }
 

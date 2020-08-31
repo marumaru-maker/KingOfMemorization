@@ -20,7 +20,5 @@ public class CardShareListItemDeco extends RecyclerView.ItemDecoration {
 
         outRect.top = 20;
 
-
-
     }
 }
