@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="marumaru.v01.kingofmemorization">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="marumaru.v01.kingofmemorization"
+    android:installLocation="preferExternal"
+    >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="true"
@@ -69,6 +73,18 @@
         </activity>
 
         <activity android:name=".CardShareGetActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+
+        <activity android:name=".CardShareModifyActivity"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:windowSoftInputMode="adjustPan">
+
+        </activity>
+
+        <activity android:name=".UserRankActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
 
