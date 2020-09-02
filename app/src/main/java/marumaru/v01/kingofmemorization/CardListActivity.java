@@ -175,10 +175,8 @@ public class CardListActivity extends AppCompatActivity {
                         JSONObject object = (JSONObject) jsonArray.get(i);
 
                         CardPost post = new CardPost();
-                        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
-                        post.setReg_date(date_format.format(new Date()));
+                        post.setReg_date(object.getString("reg_date"));
                         post.setTitle(object.getString("title"));
-                        post.setStar(object.getLong("num_star"));
                         post.setCno(object.getLong("cno"));
                         card_lists.add(post);
                     }

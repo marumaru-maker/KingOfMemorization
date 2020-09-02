@@ -26,7 +26,7 @@ public class CardShareAdapter extends RecyclerView.Adapter<CardShareVH> {
 
     Context mContext;
     ArrayList<CardPost> list_cards;
-    CardPost card;
+    //CardPost card;
     String result;
     TextView tv_share_star;
 
@@ -47,7 +47,7 @@ public class CardShareAdapter extends RecyclerView.Adapter<CardShareVH> {
     @Override
     public void onBindViewHolder(@NonNull CardShareVH holder, int position) {
 
-        card = list_cards.get(position);
+        final CardPost card = list_cards.get(position); // final 안 하고 전역변수로 접근하니깐 마지막 카드의 값을 인텐트로 전달되는 값이 따라가더라;
 
         holder.tv_share_title.setText(card.getTitle());
         holder.tv_share_category.setText(card.getCategory());
@@ -60,7 +60,7 @@ public class CardShareAdapter extends RecyclerView.Adapter<CardShareVH> {
         holder.ll_share_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(mContext, "ll_share_card Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "ll_share_card Clicked" + card.getSno(), Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(mContext, CardShareGetActivity.class);
                 intent.putExtra("sno", card.getSno());
@@ -87,7 +87,6 @@ public class CardShareAdapter extends RecyclerView.Adapter<CardShareVH> {
 
                 // sno 를 request 에 보내서 해당 번호 카드들을 나의 카드에 insert 한다;
                 sendShareRequest(e_cnos, card.getTitle(), sno, view_parent);
-
             }
         });
 

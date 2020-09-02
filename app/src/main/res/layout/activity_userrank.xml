@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_rank"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+
+        ></androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_rank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_star_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="별 개수" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_share_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공유 카드" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_period_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="암기 기간" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_rank"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+
+</LinearLayout>

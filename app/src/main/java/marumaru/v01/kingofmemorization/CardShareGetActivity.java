@@ -31,7 +31,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import marumaru.v01.kingofmemorization.Request.DeleteShareCardRequest;
+import marumaru.v01.kingofmemorization.Request.GetASharedCardRequest;
 import marumaru.v01.kingofmemorization.Request.ShareCardGetRequest;
+import marumaru.v01.kingofmemorization.domain.CardPost;
 import marumaru.v01.kingofmemorization.domain.Card_Item;
 
 public class CardShareGetActivity extends AppCompatActivity {
@@ -42,7 +44,8 @@ public class CardShareGetActivity extends AppCompatActivity {
     LinearLayout ll_share_card_get_option;
     TextView tv_share_title, tv_share_regdate, tv_share_star, tv_share_category, tv_share_writer_cnt;
 
-    String writer;
+    CardPost shared_card_post;
+    String writer, cnos, category, title;
     Long sno;
 
     @Override
@@ -51,11 +54,13 @@ public class CardShareGetActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_cardshare_get);
 
+        // 처음 받아올 때는 intent 로 받아온다; 그리고 수정 후에 onRestart() 일 때는 서버에서 받아온다; 최대한 서버에 요청하는 양을 줄인다;
+
         sno = getIntent().getLongExtra("sno", 0L);
-        String cnos = getIntent().getStringExtra("cnos"); // 인텐트에서 cnos 값 받아오기
-        String title = getIntent().getStringExtra("title");
+        cnos = getIntent().getStringExtra("cnos"); // 인텐트에서 cnos 값 받아오기
+        title = getIntent().getStringExtra("title");
         String reg_date = getIntent().getStringExtra("reg_date");
-        String category = getIntent().getStringExtra("category");
+        category = getIntent().getStringExtra("category");
         writer = getIntent().getStringExtra("writer");
         Long num_star = getIntent().getLongExtra("num_star", 0L);
 
@@ -118,20 +123,34 @@ public class CardShareGetActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(CardShareGetActivity.this, "Modify this Post!", Toast.LENGTH_SHORT).show();
+                    // 수정 액티비티 만들기 - sno, cnos, title, category 등 전달 - 뷰에 뿌리기(제목, 카테고리, 선택한 암기카드) - 수정 버튼 클릭 시 서버에 수정 작업
+                    Intent intent = new Intent(getApplicationContext(), CardShareModifyActivity.class);
+                    intent.putExtra("sno", sno);
+                    startActivity(intent);
                 }
             });
 
             ll_share_card_get_option.addView(card_option);
         }
 
-        // rv 에 어댑터 넣어주고 거기에다 뷰홀더 생성되게 할 것
-        // 어댑터에 넣을 내용은 volley 로 받아오기
-        // 뷰홀더에 넣을 레이아웃 짜기
-
         rv_share_get = findViewById(R.id.rv_share_get);
 
-        // Volley 로 cno 에 해당하는 정보 받아오기
+        sendGetKeyValueRequest();
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        shared_card_post = new CardPost();
+
+        sendGetASharedCardRequest(sno);
+
+        sendGetKeyValueRequest();
+    }
+
+    private void sendGetKeyValueRequest() {
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -140,7 +159,6 @@ public class CardShareGetActivity extends AppCompatActivity {
 
                 lists = new ArrayList<>();
 
-                // response 를 json 파싱해서 lists 에 넣어주기
                 try {
                     JSONArray arr_json = new JSONArray(response);
 
@@ -179,6 +197,46 @@ public class CardShareGetActivity extends AppCompatActivity {
         rv_share_get.setAdapter(adapter);
     }
 
+    private void sendGetASharedCardRequest(Long sno) {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.d("response", response);
+                if(response == null || response.equals(""))
+                    return;
+
+                try {
+                    JSONObject object = new JSONObject(response);
+                    shared_card_post.setTitle(object.getString("title"));
+                    shared_card_post.setCnos(object.getString("cnos"));
+                    shared_card_post.setCategory(object.getString("category"));
+                    shared_card_post.setReg_date(object.getString("reg_date"));
+                    shared_card_post.setStar(object.getLong("num_star"));
+
+                    initSharedCard(shared_card_post);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        GetASharedCardRequest getASharedCardRequest = new GetASharedCardRequest(sno, listener);
+
+        queue.add(getASharedCardRequest);
+    }
+
+    private void initSharedCard(CardPost shared_card_post) {
+
+        tv_share_title.setText(shared_card_post.getTitle());
+        tv_share_regdate.setText(shared_card_post.getReg_date());
+        tv_share_category.setText(shared_card_post.getCategory());
+        tv_share_star.setText(shared_card_post.getStar()+" 개");
+        cnos = shared_card_post.getCnos();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -194,8 +252,7 @@ public class CardShareGetActivity extends AppCompatActivity {
 
                 UserSharedPreference.removeUserId(getApplicationContext());
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                finish();
 
                 return true;
             }
@@ -205,8 +262,7 @@ public class CardShareGetActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                finish();
 
                 return true;
             }

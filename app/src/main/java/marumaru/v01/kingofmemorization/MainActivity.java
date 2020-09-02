@@ -21,21 +21,12 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    /**
-     * The number of pages (wizard steps) to show in this demo.
-     */
+
     private static final int NUM_PAGES = 5;
 
-    /**
-     * The pager widget, which handles animation and allows swiping horizontally to access previous
-     * and next wizard steps.
-     */
     private ViewPager2 viewPager;
-    private ImageButton imageButton_card, imageButton_share;
+    private ImageButton imageButton_card, imageButton_share, imageButton_rank;
 
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
     private FragmentStateAdapter pagerAdapter;
 
     AlertDialog.Builder alertBuilder;
@@ -77,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         imageButton_card = findViewById(R.id.btn_card);
         imageButton_share = findViewById(R.id.btn_share);
+        imageButton_rank = findViewById(R.id.btn_rank);
 
-        // Card Regsitering Listener
+        // 나의 카드 클릭 이벤트 리스너
         imageButton_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Card Sharing Listener
+        // 카드 공유 클릭 이벤트 리스너
         imageButton_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +99,15 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), CardShareActivity.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        // 랭크 버튼 클릭 이벤트 리스너
+        imageButton_rank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), UserRankActivity.class);
+                startActivity(intent);
             }
         });
 
